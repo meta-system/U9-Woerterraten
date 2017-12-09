@@ -1,0 +1,7 @@
+6
+Java
+Klasse
+Objekt
+Methode
+Attribut
+Vererbung
