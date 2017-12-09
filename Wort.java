@@ -12,4 +12,15 @@ public class Wort {
     private int anzahlGefundeneZeichen;
     // true wenn das Wort gefunden wurde, ansonsten false
     private boolean statusGeloest;
+
+
+    public Wort(String wort) {
+        this.wort = wort;
+        anzahlVersuche = 0;
+        anzahlLoesungen = 0;
+        gefundeneZeichen = new boolean[wort.length()];
+        anzahlGefundeneZeichen = 0;
+        statusGeloest = false;
+    }
+
 }
