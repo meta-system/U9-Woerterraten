@@ -46,5 +46,14 @@ public class Wort {
 	public String aufloesen(){
 		return wort.toString();
 	}
+	public boolean geloest(){
+		return statusGeloest;
+	}
+	public int getAnzahlVersuche(){
+		return anzahlVersuche;
+	}
+	public int getAnzahlLoesungen(){
+		return anzahlLoesungen;
+	}
 
 }
