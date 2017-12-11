@@ -12,7 +12,8 @@ public class Wort {
     private int anzahlGefundeneZeichen;
     // true wenn das Wort gefunden wurde, ansonsten false
     private boolean statusGeloest;
-
+	
+	
 
     public Wort(String wort) {
         this.wort = wort;
@@ -22,5 +23,23 @@ public class Wort {
         anzahlGefundeneZeichen = 0;
         statusGeloest = false;
     }
+	
+	
+	//setzt Status zurück
+	public void neuerVersuch() {
+		
+	}
+	public String toString () {
+		String myString = "";
+		for (int i = 0; i < wort.length(); i++){
+			myString += (gefundeneZeichen[i]) ? wort.charAt(i) : "_";
+		}
+		return myString;
+	}
+
+
+
+
+
 
 }
