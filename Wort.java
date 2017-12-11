@@ -55,5 +55,10 @@ public class Wort {
 	public int getAnzahlLoesungen(){
 		return anzahlLoesungen;
 	}
+	public int compareTo(wort myWort){
+		if (anzahlVersuche > myWort.getAnzahlVersuche()) {
+			return 1;
+		} else if (;
+	}
 
 }
