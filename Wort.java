@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Wort {
     // das zu erratende Wort
     private String wort;
@@ -23,19 +25,30 @@ public class Wort {
     }
 	
 	//setzt Status zurück
-	public void neuerVersuch(char input) {
+	public void neuerVersuch(){
+    	statusGeloest = false;
+    	anzahlGefundeneZeichen = 0;
+		Arrays.fill(gefundeneZeichen, false);
+	}
+	public int rateZeichen(char input) {
+    	int count = 0;
 		anzahlVersuche++;
 		for (int i = 0 ; i < wort.length(); i++){
 			if (input == wort.charAt(i)){
+				anzahlLoesungen++;
 				gefundeneZeichen[i] = true;
+				anzahlGefundeneZeichen++;
+				count++;
 			}
 		}
+		return count;
 	}
 	
 	public String toString () {
 		String myString = "";
 		for (int i = 0; i < wort.length(); i++){
 			myString += (gefundeneZeichen[i]) ? wort.charAt(i) : "_";
+			myString += " ";
 		}
 		return myString;
 	}
@@ -74,9 +87,14 @@ public class Wort {
 	public int compareTo(Wort myWort){
 		if (anzahlVersuche > myWort.getAnzahlVersuche()) {
 			return 1;
+		} else if (anzahlVersuche == myWort.getAnzahlVersuche()) {
+			return  (anzahlLoesungen> myWort.anzahlLoesungen) ? 1 : 0;
 		} else {
-			return anzahlVersuche - myWort.getAnzahlVersuche();
+			return -1;
 		}
 	}
 
+	public String getWort() {
+		return wort;
+	}
 }
