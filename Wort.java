@@ -23,8 +23,13 @@ public class Wort {
     }
 	
 	//setzt Status zurück
-	public void neuerVersuch() {
-		
+	public void neuerVersuch(char input) {
+		anzahlVersuche++;
+		for (int i = 0 ; i < wort.length(); i++){
+			if (input == wort.charAt(i)){
+				gefundeneZeichen[i] = true;
+			}
+		}
 	}
 	
 	public String toString () {
@@ -40,14 +45,25 @@ public class Wort {
 			statusGeloest = true;
 			return true;
 		} else {
+			statusGeloest = false;
 			return false;
 		}
 	}
 	public String aufloesen(){
+    	for (int i = 0; i< gefundeneZeichen.length; i++){
+    		gefundeneZeichen[i]  = true;
+		}
 		return wort.toString();
 	}
 	public boolean geloest(){
-		return statusGeloest;
+		for (int i = 0; i < gefundeneZeichen.length; i++){
+			if (!gefundeneZeichen[i]){
+				statusGeloest =false;
+				return false;
+			}
+		}
+		statusGeloest = true;
+		return true;
 	}
 	public int getAnzahlVersuche(){
 		return anzahlVersuche;
@@ -55,10 +71,12 @@ public class Wort {
 	public int getAnzahlLoesungen(){
 		return anzahlLoesungen;
 	}
-	public int compareTo(wort myWort){
+	public int compareTo(Wort myWort){
 		if (anzahlVersuche > myWort.getAnzahlVersuche()) {
 			return 1;
-		} else if (;
+		} else {
+			return anzahlVersuche - myWort.getAnzahlVersuche();
+		}
 	}
 
 }
