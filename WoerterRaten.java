@@ -10,7 +10,6 @@ public class WoerterRaten {
         int cur = ThreadLocalRandom.current().nextInt(0, woerter.length-1);
         woerter[cur].neuerVersuch();
         String antwort;
-        boolean victory  =false;
         char temp;
         do{
             aktionZahl--;
