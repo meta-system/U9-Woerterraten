@@ -50,7 +50,7 @@ public class WoerterRaten {
                     aktionZahl++;
         			break;
         	}
-        } while (aktionZahl>0);
+        } while (aktionZahl>1);
 
         System.out.println("S t a t i s t i k  ( Anzahl  Versuche  :  Anzahl  e r f o l g r e i c h e r  Versuche > gesuchtes  Wort )");
         woerter = iSort(woerter);
