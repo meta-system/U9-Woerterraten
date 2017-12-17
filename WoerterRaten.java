@@ -4,33 +4,49 @@ import java.util.concurrent.ThreadLocalRandom;
 public class WoerterRaten {
     public static void main(String[] args) throws IOException {
         Wort[] woerter = einlesen("beispiel.txt");
-        BufferedReader in = new BufferedReader(new FileReader(file));
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Anzahl der Aktionen:");
         int aktionZahl = Integer.parseInt(in.readLine());
-        int randomNum = ThreadLocalRandom.current().nextInt(0, woerter.length-1);
-        System.out.println(woerter[randomNum].toString());
+        int cur = ThreadLocalRandom.current().nextInt(0, woerter.length-1);
+        String antwort;
+        boolean victory  =false;
         char temp;
         do{
-        	System.out.print("Wollen Sie aufgeben (a), loesen (l), oder Buchstaben raten (r)?");
-        	temp = in.read();
-        	switch (temp){
-        		case 'a': //Reset
-        			break;
+            aktionZahl--;
+            System.out.println(woerter[cur].toString());
+            //System.out.println(aktionZahl);
+        	System.out.println("Wollen Sie aufgeben (a), loesen (l), oder Buchstaben raten (r)?");
+        	//temp =  in.readLine().charAt(0);
+        	temp= in.readLine().charAt(0);
+            switch (temp){
+        		case 'a':
+        		    woerter[cur].aufloesen();
+        		    System.out.println(woerter[cur].toString());
+                    cur = ThreadLocalRandom.current().nextInt(0, woerter.length-1);
+                    break;
         		case 'l':
-        			System.out.print("Wie lautet das Wort?");
-        			if (woerter[randomNum].aufloesen(in.read()){
-        				System.out.println("Richtig
-        			} else {
-        			
+                    System.out.println("Wie lautet das Wort?");
+        			antwort = in.readLine();
+        			if (woerter[cur].aufloesen(antwort)){
+        				System.out.println("Richtig");
+                        cur = ThreadLocalRandom.current().nextInt(0, woerter.length-1);
+                    } else {
+                        System.out.println("Falsch!");
         			}
         			break;
         		case 'r':
-        			//usw
+                    System.out.println("I am in r");
+                    woerter[cur].neuerVersuch(in.readLine().charAt(0));
+        		    if(woerter[cur].geloest()){
+                        cur = ThreadLocalRandom.current().nextInt(0, woerter.length-1);
+                    }
         			break;
-        		default:
+                default:
+                    System.out.println("Bitte richtige Eingabe.");
+                    aktionZahl++;
         			break;
         	}
-        }
+        } while (aktionZahl>0);
         
     }
     public static Wort[] einlesen(String file) throws IOException {
@@ -41,5 +57,10 @@ public class WoerterRaten {
             woerter[i] = new Wort(in.readLine());
         }
         return woerter;
+    }
+
+    public static String getWord () throws  IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        return br.readLine();
     }
 }
