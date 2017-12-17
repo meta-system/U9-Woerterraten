@@ -14,7 +14,7 @@ public class WoerterRaten {
         do{
             aktionZahl--;
             System.out.println(woerter[cur].toString());
-            //System.out.println(aktionZahl);
+            System.out.println("Noch " + aktionZahl + " Aktionen.");
         	System.out.println("Wollen Sie aufgeben (a), loesen (l), oder Buchstaben raten (r)?");
         	//temp =  in.readLine().charAt(0);
         	temp= in.readLine().charAt(0);
@@ -35,8 +35,8 @@ public class WoerterRaten {
         			}
         			break;
         		case 'r':
-                    System.out.println("I am in r");
-                    woerter[cur].neuerVersuch(in.readLine().charAt(0));
+                    System.out.println("Welches Zeichen wählen Sie?");
+                    System.out.print("Das Zeichen kam " + woerter[cur].rateZeichen(in.readLine().charAt(0)) + " mal vor.");
         		    if(woerter[cur].geloest()){
                         cur = ThreadLocalRandom.current().nextInt(0, woerter.length-1);
                     }
@@ -47,8 +47,15 @@ public class WoerterRaten {
         			break;
         	}
         } while (aktionZahl>0);
-        
+
+        System.out.println("S t a t i s t i k  ( Anzahl  Versuche  :  Anzahl  e r f o l g r e i c h e r  Versuche > gesuchtes  Wort )");
+        woerter = iSort(woerter);
+        for (int i = 0; i < woerter.length ;i++){
+            System.out.print(woerter[i].getAnzahlVersuche() + " : " + woerter[i].getAnzahlLoesungen() + " -> " + woerter[i].getWort());
+        }
     }
+
+
     public static Wort[] einlesen(String file) throws IOException {
         BufferedReader in = new BufferedReader(new FileReader(file));
         int anzahl = Integer.parseInt(in.readLine());
@@ -59,8 +66,25 @@ public class WoerterRaten {
         return woerter;
     }
 
-    public static String getWord () throws  IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        return br.readLine();
+    public static Wort[] iSort(Wort [] array){
+        Wort temp;
+        for (int i = 0; i < array.length; i++){
+            temp = array[i];
+            for (int j = (i-1); 0 <= j; j--){
+                if (array[j].compareTo(temp) > 0){
+                    array[j+1] = array[j];
+                    if (j == 0){
+                        array[j]=temp;
+                    }
+                } else {
+                    array[j+1] = temp;
+                    //j = 0;
+                    break;
+                }
+            }
+        }
+        return array;
     }
+
+
 }
