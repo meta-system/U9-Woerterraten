@@ -52,15 +52,15 @@ public class WoerterRaten {
         	}
         } while (aktionZahl>1);
 
-        System.out.println("S t a t i s t i k  ( Anzahl  Versuche  :  Anzahl  e r f o l g r e i c h e r  Versuche > gesuchtes  Wort )");
+        System.out.println("\nS t a t i s t i k\n( Anzahl  Versuche  :  Anzahl  e r f o l g r e i c h e r  Versuche -> gesuchtes  Wort )");
         woerter = iSort(woerter);
-        for (int i = 0; i < woerter.length ;i++){
-            System.out.print(woerter[i].getAnzahlVersuche() + " : " + woerter[i].getAnzahlLoesungen() + " -> " + woerter[i].getWort());
+        for (Wort aWoerter : woerter) {
+            System.out.println(aWoerter.getAnzahlVersuche() + " : " + aWoerter.getAnzahlLoesungen() + " -> " + aWoerter.getWort());
         }
     }
 
 
-    public static Wort[] einlesen(String file) throws IOException {
+    private static Wort[] einlesen(String file) throws IOException {
         BufferedReader in = new BufferedReader(new FileReader(file));
         int anzahl = Integer.parseInt(in.readLine());
         Wort[] woerter = new Wort[anzahl];
@@ -70,12 +70,12 @@ public class WoerterRaten {
         return woerter;
     }
 
-    public static Wort[] iSort(Wort [] array){
+    private static Wort[] iSort(Wort[] array){
         Wort temp;
         for (int i = 0; i < array.length; i++){
             temp = array[i];
             for (int j = (i-1); 0 <= j; j--){
-                if (array[j].compareTo(temp) > 0){
+                if (array[j].compareTo(temp) < 0){
                     array[j+1] = array[j];
                     if (j == 0){
                         array[j]=temp;

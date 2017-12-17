@@ -15,7 +15,7 @@ public class Wort {
     // true wenn das Wort gefunden wurde, ansonsten false
     private boolean statusGeloest;
 
-    public Wort(String wort) {
+    Wort(String wort) {
         this.wort = wort;
         anzahlVersuche = 0;
         anzahlLoesungen = 0;
@@ -45,12 +45,12 @@ public class Wort {
 	}
 	
 	public String toString () {
-		String myString = "";
+		StringBuilder myString = new StringBuilder();
 		for (int i = 0; i < wort.length(); i++){
-			myString += (gefundeneZeichen[i]) ? wort.charAt(i) : "_";
-			myString += " ";
+			myString.append((gefundeneZeichen[i]) ? wort.charAt(i) : "_");
+			myString.append(" ");
 		}
-		return myString;
+		return myString.toString();
 	}
 
 	public boolean aufloesen(String versuch){
@@ -62,16 +62,15 @@ public class Wort {
 			return false;
 		}
 	}
-	public String aufloesen(){
+	public void aufloesen(){
     	for (int i = 0; i< gefundeneZeichen.length; i++){
     		gefundeneZeichen[i]  = true;
 		}
-		return wort.toString();
 	}
 	public boolean geloest(){
-		for (int i = 0; i < gefundeneZeichen.length; i++){
-			if (!gefundeneZeichen[i]){
-				statusGeloest =false;
+		for (boolean aZeichen : gefundeneZeichen) {
+			if (!aZeichen) {
+				statusGeloest = false;
 				return false;
 			}
 		}
